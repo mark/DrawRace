@@ -2,6 +2,10 @@ class DRCar {
 
     static var car:DRCar;
     
+    var cursor:DRVector;
+    
+    // Car parts:
+    
     var chassis:DRChassis;        
     var wheel:DRWheel;
     var throttle:DRThrottle;
@@ -10,14 +14,12 @@ class DRCar {
         DRCar.car = this;
     }
 
-    function moveTowards(x:Number, y:Number) {
-        var dx = x - chassis.x;
-        var dy = y - chassis.y;
+    function moveTowards() {
+        cursor = DRVector.mouse().minus( car.chassis.position );
         
-        wheel.turnTowards(dx, dy);        
-        throttle.speedTowards(dx, dy);
-        
-        chassis.move(throttle, wheel);
+        throttle.accelerate();
+        wheel.turn();
+        chassis.move();
     }
     
     function isInPlay():Boolean {

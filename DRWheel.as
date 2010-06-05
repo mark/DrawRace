@@ -1,49 +1,28 @@
 class DRWheel {
 
-    static var MAX_TURN  = 2.0;
+    static var MAX_TURN  = 6.0;
     
     var car:DRCar;
     
-    var facing:Number;
-    var turn:String;
+    var facing:DRVector;
     
     function DRWheel(car:DRCar) {
         this.car = car;
-        this.facing = 0.0;
+        this.facing = DRVector.zero();
     }
     
-    function turnTowards(x:Number, y:Number) {
-        var direction = Math.atan2(y, x) * 180.0 / Math.PI;
+    function turn() {        
+        var direction = car.cursor;
         
-        var newDirection:Number;
-
-        // Normalize the two directions
-        while (facing > direction) { direction += 360.0; }
-        
-        if (direction - facing < 180.0) {
-            // Turn counterclockwise
-            newDirection = facing + MAX_TURN;
-            if (newDirection > direction) newDirection = direction;
-            turn = "counterclockwise";
+        if (Math.abs( direction.degrees() - facing.degrees()) < MAX_TURN) {
+            facing = direction.normal();
         } else {
-            // Turn clockwise
-            newDirection = facing - MAX_TURN;
-            if (newDirection < direction) newDirection = direction;
-            turn = "clockwise";
+            if (facing.directionTo(direction) == DRVector.CLOCKWISE) {
+                facing = DRVector.inDirection( facing.degrees() - MAX_TURN );
+            } else {
+                facing = DRVector.inDirection( facing.degrees() + MAX_TURN );
+            }
         }
-        
-        if (newDirection <   0.0) newDirection += 360.0;
-        if (newDirection > 360.0) newDirection -= 360.0;
-
-        facing = newDirection;
     }
     
-    function normalY():Number {
-        return Math.sin( facing * Math.PI / 180.0 );
-    }
-    
-    function normalX():Number {
-        return Math.cos( facing * Math.PI / 180.0 );
-    }
-
 }
