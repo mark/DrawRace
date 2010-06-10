@@ -1,6 +1,6 @@
 class DRWheel {
 
-    static var MAX_TURN  = 6.0;
+    static var MAX_TURN  = 4.5;
     
     var car:DRCar;
     
