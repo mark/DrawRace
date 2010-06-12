@@ -137,4 +137,23 @@ class DRCurve {
         clip.lineTo(x, y);
     }
     
+    function curveLength() {
+        return controlPoints.length;
+    }
+
+    function parameterize(t:Number) {
+        var segment = Math.floor(t);
+        var frac    = t - segment;
+        
+        var lcp = leftControlPoint(segment);
+        var startOfSegment = controlPoints[segment];
+        var endOfSegment = (segment == controlPoints.length - 1) ? controlPoints[0] : controlPoints[segment+1];
+        var rcp = rightControlPoint(segment)
+
+        var x = catmullRom(frac, lcp.x, startOfSegment.x, endOfSegment.x, rcp.x);
+        var y = catmullRom(frac, lcp.y, startOfSegment.y, endOfSegment.y, rcp.y);
+
+        return { x: x, y: y };
+    }
+    
 }

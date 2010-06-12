@@ -46,6 +46,9 @@ class DREditCoursePen extends DRPen {
             }
         }
         if (Key.isDown(Key.ENTER)) {
+            var courseDisplay = new DRCourseDisplay(course);
+            courseDisplay.display();
+            
             switchPen("drive");
         }
         if (currentControlPoint && Key.isDown(CHAR_C)) {

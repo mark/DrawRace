@@ -24,11 +24,12 @@ class DRCourse {
     
     function display() {
         clip = _root.createEmptyMovieClip("Course", 0);
-        
-        clip.createEmptyMovieClip("ribs", 0);
-        clip.createEmptyMovieClip("curves", 1);
-        clip.createEmptyMovieClip("controlPoints", 2);
-        clip.createEmptyMovieClip("vehicles", 3);
+
+        clip.createEmptyMovieClip("display",       0);
+        clip.createEmptyMovieClip("ribs",          1);
+        clip.createEmptyMovieClip("curves",        2);
+        clip.createEmptyMovieClip("controlPoints", 3);
+        clip.createEmptyMovieClip("vehicles",      4);
         
         forwardCurve.display( clip.curves, DRCurve.EDGE );
         backwardCurve.display( clip.curves, DRCurve.EDGE );
